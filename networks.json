@@ -76,5 +76,11 @@
       "address": "0x0227628f3F023bb0B980b67D528571c95c6DaC1c",
       "startBlock": 3518270
     }
+  },
+  "megaeth-testnet": {
+    "Factory": {
+      "address": "0xa083Dd689d1B67B297C486b5f43bAcf5f45ae6B8",
+      "startBlock": 21354894
+    }
   }
 }

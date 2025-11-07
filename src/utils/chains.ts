@@ -17,6 +17,7 @@ export enum ChainId {
   ZORA_MAINNET = 7777777,
   WORLDCHAIN_MAINNET = 480,
   SEPOLIA = 11155111,
+  MEGAETH_TESTNET = 6342,
 }
 
 // subgraph does not support string enums, hence these constants
@@ -33,6 +34,7 @@ const ZKSYNC_ERA_NETWORK_NAME = 'zksync-era'
 const ZORA_MAINNET_NETWORK_NAME = 'zora-mainnet'
 const WORLDCHAIN_MAINNET_NETWORK_NAME = 'worldchain-mainnet'
 const SEPOLIA_NETWORK_NAME = 'sepolia'
+const MEGAETH_TESTNET_NETWORK_NAME = 'megaeth-testnet'
 
 // Note: All token and pool addresses should be lowercased!
 export class SubgraphConfig {
@@ -451,6 +453,26 @@ export function getSubgraphConfig(): SubgraphConfig {
         '0x1c7d4b196cb0c7b01d743fbc6116a902379c7238', // USDC
         '0xaa8e23fb1079ea71e0a56f48a2aa51851d8433d0', // USDT
         '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984', // UNI,
+      ],
+      tokenOverrides: [],
+      poolsToSkip: [],
+      poolMappings: [],
+    }
+  } else if (selectedNetwork == MEGAETH_TESTNET_NETWORK_NAME) {
+    return {
+      factoryAddress: '0xa083Dd689d1B67B297C486b5f43bAcf5f45ae6B8',
+      stablecoinWrappedNativePoolAddress: '0x6fe34ab177c3821402d465d53df303d3dbf45f2c', // MWETH/MUSDC pool
+      stablecoinIsToken0: false, // MUSDC is token1 (MWETH is token0 since 0xd570 < 0xda0d)
+      wrappedNativeAddress: '0xd57083cF8A0d9ebBaBc295CC91AaF1E36D244096', // MWETH
+      minimumNativeLocked: BigDecimal.fromString('1'),
+      stablecoinAddresses: [
+        '0xda0d1c9cfc065edcda41cd6e2bb6993f225cc749', // MUSDC
+        '0xf965748e2b52e7225f0ca7bdcc4b708747c584b7', // MDAI
+      ],
+      whitelistTokens: [
+        '0xd57083cf8a0d9ebbabcc295cc91aaf1e36d244096', // MWETH
+        '0xda0d1c9cfc065edcda41cd6e2bb6993f225cc749', // MUSDC
+        '0xf965748e2b52e7225f0ca7bdcc4b708747c584b7', // MDAI
       ],
       tokenOverrides: [],
       poolsToSkip: [],
