@@ -4,7 +4,7 @@ import { Bundle, Pool, Token } from '../../types/schema'
 import { Initialize } from '../../types/templates/Pool/Pool'
 import { getSubgraphConfig, SubgraphConfig } from '../../utils/chains'
 import { updatePoolDayData, updatePoolHourData } from '../../utils/intervalUpdates'
-import { findNativePerToken, getNativePriceInUSD } from '../../utils/pricing'
+import { findNativePerToken, getNativePriceInUSD, sqrtPriceX96ToTokenPrices } from '../../utils/pricing'
 
 export function handleInitialize(event: Initialize): void {
   handleInitializeHelper(event)
@@ -21,11 +21,18 @@ export function handleInitializeHelper(event: Initialize, subgraphConfig: Subgra
   const pool = Pool.load(event.address.toHexString())!
   pool.sqrtPrice = event.params.sqrtPriceX96
   pool.tick = BigInt.fromI32(event.params.tick)
-  pool.save()
-
+  
   // update token prices
   const token0 = Token.load(pool.token0)
   const token1 = Token.load(pool.token1)
+
+  // calculate and set pool prices from sqrtPrice
+  if (token0 && token1) {
+    const prices = sqrtPriceX96ToTokenPrices(pool.sqrtPrice, token0 as Token, token1 as Token)
+    pool.token0Price = prices[0]
+    pool.token1Price = prices[1]
+  }
+  pool.save()
 
   // update ETH price now that prices could have changed
   const bundle = Bundle.load('1')!

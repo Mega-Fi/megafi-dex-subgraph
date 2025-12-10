@@ -5,6 +5,12 @@
       "startBlock": 165
     }
   },
+  "arbitrum-sepolia": {
+    "Factory": {
+      "address": "0x299c4f7DeF5A62e7516DEa6fF79E5EA2f0A30d36",
+      "startBlock": 215470974
+    }
+  },
   "avalanche": {
     "Factory": {
       "address": "0x740b1c1de25031C31FF4fC9A62f554A55cdC1baD",
@@ -79,8 +85,8 @@
   },
   "megaeth-testnet": {
     "Factory": {
-      "address": "0xa083Dd689d1B67B297C486b5f43bAcf5f45ae6B8",
-      "startBlock": 21354894
+      "address": "0x9E36aAedf3A036D2acE0A9ad8e644112686e9934",
+      "startBlock": 4894941
     }
   }
 }

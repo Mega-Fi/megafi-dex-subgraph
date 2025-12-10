@@ -5,6 +5,7 @@ import { StaticTokenDefinition } from './staticTokenDefinition'
 
 export enum ChainId {
   ARBITRUM_ONE = 42161,
+  ARBITRUM_SEPOLIA = 421614,
   AVALANCHE = 43114,
   BASE = 8453,
   BLAST_MAINNET = 81457,
@@ -17,11 +18,12 @@ export enum ChainId {
   ZORA_MAINNET = 7777777,
   WORLDCHAIN_MAINNET = 480,
   SEPOLIA = 11155111,
-  MEGAETH_TESTNET = 6342,
+  MEGAETH_TIMOTHY = 6343,
 }
 
 // subgraph does not support string enums, hence these constants
 const ARBITRUM_ONE_NETWORK_NAME = 'arbitrum-one'
+const ARBITRUM_SEPOLIA_NETWORK_NAME = 'arbitrum-sepolia'
 const AVALANCHE_NETWORK_NAME = 'avalanche'
 const BASE_NETWORK_NAME = 'base'
 const BLAST_MAINNET_NETWORK_NAME = 'blast-mainnet'
@@ -34,7 +36,7 @@ const ZKSYNC_ERA_NETWORK_NAME = 'zksync-era'
 const ZORA_MAINNET_NETWORK_NAME = 'zora-mainnet'
 const WORLDCHAIN_MAINNET_NETWORK_NAME = 'worldchain-mainnet'
 const SEPOLIA_NETWORK_NAME = 'sepolia'
-const MEGAETH_TESTNET_NETWORK_NAME = 'megaeth-testnet'
+const MEGAETH_TIMOTHY_NETWORK_NAME = 'megaeth-timothy'
 
 // Note: All token and pool addresses should be lowercased!
 export class SubgraphConfig {
@@ -115,6 +117,24 @@ export function getSubgraphConfig(): SubgraphConfig {
           decimals: BigInt.fromI32(6),
         },
       ],
+      poolsToSkip: [],
+      poolMappings: [],
+    }
+  } else if (selectedNetwork == ARBITRUM_SEPOLIA_NETWORK_NAME) {
+    return {
+      factoryAddress: '0x299c4f7def5a62e7516dea6ff79e5ea2f0a30d36',
+      stablecoinWrappedNativePoolAddress: '0x3d8a18507554569757c7e90548d809e6cd65525a', // WETH-USDC pool
+      stablecoinIsToken0: false, // USDC is token1
+      wrappedNativeAddress: '0x980b62da83eff3d4576c647993b0c1d7faf17c73', // WETH
+      minimumNativeLocked: BigDecimal.fromString('1'),
+      stablecoinAddresses: [
+        '0xe9827e49a90d5c03307c579730dbfd66934436a3', // USDC
+      ],
+      whitelistTokens: [
+        '0x980b62da83eff3d4576c647993b0c1d7faf17c73', // WETH
+        '0xe9827e49a90d5c03307c579730dbfd66934436a3', // USDC
+      ],
+      tokenOverrides: [],
       poolsToSkip: [],
       poolMappings: [],
     }
@@ -458,21 +478,19 @@ export function getSubgraphConfig(): SubgraphConfig {
       poolsToSkip: [],
       poolMappings: [],
     }
-  } else if (selectedNetwork == MEGAETH_TESTNET_NETWORK_NAME) {
+  } else if (selectedNetwork == MEGAETH_TIMOTHY_NETWORK_NAME) {
     return {
-      factoryAddress: '0xa083Dd689d1B67B297C486b5f43bAcf5f45ae6B8',
-      stablecoinWrappedNativePoolAddress: '0x6fe34ab177c3821402d465d53df303d3dbf45f2c', // MWETH/MUSDC pool
-      stablecoinIsToken0: false, // MUSDC is token1 (MWETH is token0 since 0xd570 < 0xda0d)
-      wrappedNativeAddress: '0xd57083cF8A0d9ebBaBc295CC91AaF1E36D244096', // MWETH
+      factoryAddress: '0x9E36aAedf3A036D2acE0A9ad8e644112686e9934',
+      stablecoinWrappedNativePoolAddress: '0xde9c52e34a574633955c711b45fca9cd98d5f330', // MWETH/MUSDC pool (lowercase)
+      stablecoinIsToken0: false, // MUSDC is token1, token1Price gives MUSDC per WETH (USD per ETH)
+      wrappedNativeAddress: '0x4200000000000000000000000000000000000006', // MWETH
       minimumNativeLocked: BigDecimal.fromString('1'),
       stablecoinAddresses: [
-        '0xda0d1c9cfc065edcda41cd6e2bb6993f225cc749', // MUSDC
-        '0xf965748e2b52e7225f0ca7bdcc4b708747c584b7', // MDAI
+        '0xCd983757ed94053986e6Ae82dC88f1301d05d86A', // MUSDC
       ],
       whitelistTokens: [
-        '0xd57083cf8a0d9ebbabcc295cc91aaf1e36d244096', // MWETH
-        '0xda0d1c9cfc065edcda41cd6e2bb6993f225cc749', // MUSDC
-        '0xf965748e2b52e7225f0ca7bdcc4b708747c584b7', // MDAI
+        '0x4200000000000000000000000000000000000006', // MWETH
+        '0xCd983757ed94053986e6Ae82dC88f1301d05d86A', // MUSDC
       ],
       tokenOverrides: [],
       poolsToSkip: [],
