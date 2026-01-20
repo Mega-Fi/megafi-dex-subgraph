@@ -19,6 +19,7 @@ export enum ChainId {
   WORLDCHAIN_MAINNET = 480,
   SEPOLIA = 11155111,
   MEGAETH_TIMOTHY = 6343,
+  MEGAETH_MAINNET = 4326,
 }
 
 // subgraph does not support string enums, hence these constants
@@ -37,6 +38,7 @@ const ZORA_MAINNET_NETWORK_NAME = 'zora-mainnet'
 const WORLDCHAIN_MAINNET_NETWORK_NAME = 'worldchain-mainnet'
 const SEPOLIA_NETWORK_NAME = 'sepolia'
 const MEGAETH_TIMOTHY_NETWORK_NAME = 'megaeth-timothy'
+const MEGAETH_MAINNET_NETWORK_NAME = 'megaeth'
 
 // Note: All token and pool addresses should be lowercased!
 export class SubgraphConfig {
@@ -491,6 +493,24 @@ export function getSubgraphConfig(): SubgraphConfig {
       whitelistTokens: [
         '0x4200000000000000000000000000000000000006', // MWETH
         '0xCd983757ed94053986e6Ae82dC88f1301d05d86A', // MUSDC
+      ],
+      tokenOverrides: [],
+      poolsToSkip: [],
+      poolMappings: [],
+    }
+  } else if (selectedNetwork == MEGAETH_MAINNET_NETWORK_NAME) {
+    return {
+      factoryAddress: '0xbd4ca451e3d28d053e7be2738623ed3d91709aa3', // lowercase
+      stablecoinWrappedNativePoolAddress: '', // TODO: Add pool address once created
+      stablecoinIsToken0: false, // TODO: Update based on pool
+      wrappedNativeAddress: '0x4200000000000000000000000000000000000006', // WETH
+      minimumNativeLocked: BigDecimal.fromString('1'),
+      stablecoinAddresses: [
+        // TODO: Add stablecoin addresses when available
+      ],
+      whitelistTokens: [
+        '0x4200000000000000000000000000000000000006', // WETH
+        // TODO: Add more whitelist tokens as needed
       ],
       tokenOverrides: [],
       poolsToSkip: [],

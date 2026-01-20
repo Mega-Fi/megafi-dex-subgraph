@@ -88,5 +88,11 @@
       "address": "0x9E36aAedf3A036D2acE0A9ad8e644112686e9934",
       "startBlock": 4894941
     }
+  },
+  "megaeth-mainnet": {
+    "Factory": {
+      "address": "0xbd4ca451e3d28d053e7be2738623ed3d91709aa3",
+      "startBlock": 5022265
+    }
   }
 }
